@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS</title>
+    <link rel="icon" type="x-image" href="../assets/images/image.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+</head>
+
+<style>
+    #sidebar {
+        background: 
+            linear-gradient(to bottom, rgba(25, 135, 84, 0.8), rgba(0, 0, 0, 0.9)),
+            url("/assets/images/pexels-narottama-259822321-27896591.jpg");
+        
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .active{
+        background: rgba(213, 217, 16, 0.2) !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 30px 0px rgba(0, 0, 0, 0.3);
+    }
+    input{
+        border: 1px solid green !important;
+    }
+</style>
+<body>
+    <input type="" class="form-control">
+<div class="card p-3 shadow-sm rounded-4">
+    
+    <div class="row g-3">
+
+        <!-- 🔹 LEFT SIDE (Filters + Data) -->
+        <div class="col-md-4">
+
+            <h5 class="fw-bold mb-3">Filter Data</h5>
+
+            <!-- Dropdowns -->
+            <div class="d-flex gap-2 mb-3">
+                <select id="municipalitySelect" class="form-select">
+                    <option value="">Select Municipality</option>
+                </select>
+
+                <select id="barangaySelect" class="form-select">
+                    <option value="">Select Barangay</option>
+                </select>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="row g-2">
+
+                <div class="col-6">
+                    <div class="card p-2 shadow-sm border-0 h-100">
+                        <small class="text-muted">Municipality</small>
+                        <div id="muniName" class="fw-bold">All</div>
+                        <div id="muniTotal" class="fs-5">0</div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card p-2 shadow-sm border-0 h-100">
+                        <small class="text-muted">Barangay</small>
+                        <div id="brgyName" class="fw-bold">None</div>
+                        <div id="brgyTotal" class="fs-5">0</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 🔹 RIGHT SIDE (Graph) -->
+        <div class="col-md-8">
+
+            <div class="card shadow-sm rounded-4 p-3 h-100">
+                <h6 id="selectedInfo">Municipality: All | Barangay: None</h6>
+                <canvas id="municipalityChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const canvas = document.getElementById("municipalityChart");
+    if (!canvas) return; // prevents errors if component not loaded
+
+    // 🔥 Prevent duplicate chart creation
+    if (window.municipalityChartInstance) {
+        window.municipalityChartInstance.destroy();
+    }
+
+    const data = {
+        "San Jose": {
+            total: 120,
+            barangays: {
+                "Barangay 1": 30,
+                "Barangay 2": 40,
+                "Barangay 3": 50
+            }
+        },
+        "Sibalom": {
+            total: 95,
+            barangays: {
+                "Barangay A": 25,
+                "Barangay B": 35,
+                "Barangay C": 35
+            }
+        },
+        "Hamtic": {
+            total: 80,
+            barangays: {
+                "Barangay X": 20,
+                "Barangay Y": 30,
+                "Barangay Z": 30
+            }
+        }
+    };
+
+    const muniSelect = document.getElementById("municipalitySelect");
+    const brgySelect = document.getElementById("barangaySelect");
+    const info = document.getElementById("selectedInfo");
+
+    // 🔹 Populate municipalities (only once)
+    if (muniSelect && muniSelect.options.length <= 1) {
+        Object.keys(data).forEach(muni => {
+            const option = document.createElement("option");
+            option.value = muni;
+            option.textContent = muni;
+            muniSelect.appendChild(option);
+        });
+    }
+
+    const ctx = canvas.getContext("2d");
+
+    // 🔥 Create chart safely
+    window.municipalityChartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: Object.keys(data),
+            datasets: [{
+                data: Object.values(data).map(d => d.total),
+                backgroundColor: "rgba(25,135,84,0.7)",
+                borderRadius: 8
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            responsive: true
+        }
+    });
+
+    const chart = window.municipalityChartInstance;
+
+    // 🔹 Municipality change
+    muniSelect.addEventListener("change", function () {
+        const selectedMuni = this.value;
+
+        brgySelect.innerHTML = `<option value="">Select Barangay</option>`;
+
+        if (selectedMuni) {
+            Object.keys(data[selectedMuni].barangays).forEach(brgy => {
+                const option = document.createElement("option");
+                option.value = brgy;
+                option.textContent = brgy;
+                brgySelect.appendChild(option);
+            });
+
+            info.innerText = `Municipality: ${selectedMuni} | Barangay: None`;
+        } else {
+            info.innerText = `Municipality: All | Barangay: None`;
+        }
+
+        updateMunicipalityChart();
+    });
+
+    // 🔹 Barangay change
+    brgySelect.addEventListener("change", function () {
+        const selectedMuni = muniSelect.value;
+        const selectedBrgy = this.value;
+
+        if (!selectedMuni || !selectedBrgy) return;
+
+        info.innerText = `Municipality: ${selectedMuni} | Barangay: ${selectedBrgy}`;
+        updateBarangayChart(selectedMuni);
+    });
+
+    function updateMunicipalityChart() {
+        chart.data.labels = Object.keys(data);
+        chart.data.datasets[0].data = Object.values(data).map(d => d.total);
+        chart.update();
+    }
+
+    function updateBarangayChart(muni) {
+        const brgys = data[muni].barangays;
+
+        chart.data.labels = Object.keys(brgys);
+        chart.data.datasets[0].data = Object.values(brgys);
+        chart.update();
+    }
+
+});
+</script>
+</body>
+</html>
