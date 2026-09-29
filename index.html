@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FLORENCIO ENRIQUE JR | Portfolio</title>
+<meta name="description" content="Official portfolio of Florencio Enrique Jr - Developer, Designer, Creator" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+:root{
+  --bg:#07090f;
+  --bg2:#0c1220;
+  --card:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.12);
+  --text:#f2f5ff;
+  --muted:#9aa3b8;
+  --accent:#00e5a0;
+  --accent2:#6c5cff;
+  --accent3:#ffcc3d;
+  --pink:#ff5ca8;
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+h1,h2,h3,.syne{font-family:'Syne',sans-serif}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#04120c}
+
+/* Preloader */
+#preloader{
+  position:fixed;inset:0;z-index:9999;
+  background:#05070d;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:18px;transition:opacity .6s,visibility .6s;
+}
+#preloader.hide{opacity:0;visibility:hidden}
+.loader-name{font-family:'Syne';font-weight:800;font-size:clamp(1.4rem,4vw,2.4rem);letter-spacing:.12em;overflow:hidden;white-space:nowrap;border-right:3px solid var(--accent);animation:typing 1.8s steps(20) forwards,blink .7s infinite}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+.loader-bar{width:220px;height:3px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden}
+.loader-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));animation:load 1.8s ease forwards}
+@keyframes load{to{width:100%}}
+
+/* Cursor glow */
+.cursor{position:fixed;width:22px;height:22px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
+.cursor.big{width:64px;height:64px;background:rgba(0,229,160,.15)}
+@media(hover:none){.cursor{display:none}}
+
+/* Nav */
+nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  width:min(1120px,92%);z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-radius:99px;
+  background:rgba(7,9,15,.65);backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  animation:navDrop .9s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes navDrop{from{transform:translate(-50%,-80px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em}
+.logo-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#04120c;background:linear-gradient(135deg,var(--accent),#7dfbce 60%,var(--accent2));box-shadow:0 0 24px rgba(0,229,160,.5);animation:spinPulse 4s ease-in-out infinite}
+@keyframes spinPulse{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(6deg) scale(1.08)}}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{padding:9px 16px;border-radius:99px;font-size:.9rem;color:var(--muted);transition:.25s;font-weight:500}
+.nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,.09);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:99px;font-weight:600;border:1px solid transparent;cursor:pointer;transition:.3s cubic-bezier(.2,.8,.3,1.2);font-size:.95rem}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#4de3ff);color:#03130d;box-shadow:0 8px 30px rgba(0,229,160,.35)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px rgba(0,229,160,.5)}
+.btn-ghost{border-color:var(--border);background:rgba(255,255,255,.04)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.hamburger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+
+/* Hero */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;padding:130px 5% 60px;overflow:hidden}
+#particles{position:absolute;inset:0;z-index:0}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:0;animation:float 9s ease-in-out infinite}
+.b1{width:520px;height:520px;background:radial-gradient(circle,#00e5a055,#6c5cff44,transparent);top:-120px;left:-120px}
+.b2{width:460px;height:460px;background:radial-gradient(circle,#ff5ca844,#ffcc3d33,transparent);bottom:-100px;right:-80px;animation-delay:-3s}
+.b3{width:320px;height:320px;background:radial-gradient(circle,#4de3ff55,transparent);top:35%;left:55%;animation-delay:-6s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-40px) scale(1.1)}}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black 30%,transparent 75%);z-index:0}
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:900px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);font-size:.82rem;color:#aef3d8;margin-bottom:22px;animation:fadeUp .8s .2s both}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:blinkDot 1.4s infinite}
+@keyframes blinkDot{50%{opacity:.3}}
+.hero h1{font-size:clamp(2.6rem,8vw,5.6rem);line-height:.95;font-weight:800;letter-spacing:-.03em}
+.hero h1 .stroke{color:transparent;-webkit-text-stroke:2px #fff}
+.hero h1 .grad{background:linear-gradient(90deg,var(--accent),#4de3ff,var(--accent2),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:300% 100%;animation:gradShift 5s linear infinite}
+@keyframes gradShift{to{background-position:300% 0}}
+.typewrap{margin:18px 0 10px;font-size:clamp(1rem,2.5vw,1.35rem);color:var(--muted);min-height:2em}
+#typed{color:#fff;font-weight:600;border-right:2px solid var(--accent);padding-right:4px;animation:blink .8s infinite}
+.hero p.sub{color:var(--muted);max-width:620px;margin:12px auto 30px;font-size:1.05rem}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .5s both}
+.hero-stats{display:flex;gap:14px;justify-content:center;margin-top:42px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--border);backdrop-filter:blur(12px);padding:16px 26px;border-radius:18px;min-width:150px;transition:.3s}
+.stat:hover{transform:translateY(-6px);border-color:rgba(0,229,160,.5)}
+.stat b{font-size:1.6rem;font-family:'Syne'}
+.stat span{color:var(--muted);font-size:.85rem}
+.scroll-hint{margin-top:38px;color:var(--muted);font-size:.85rem;display:flex;flex-direction:column;align-items:center;gap:8px}
+.mouse{width:26px;height:42px;border:2px solid rgba(255,255,255,.3);border-radius:99px;display:flex;justify-content:center;padding-top:8px}
+.mouse span{width:4px;height:8px;background:var(--accent);border-radius:99px;animation:wheel 1.6s infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(12px);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(36px);transition:.8s cubic-bezier(.2,.7,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+
+/* Marquee */
+.marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.02);overflow:hidden;white-space:nowrap;padding:16px 0;position:relative}
+.marquee-track{display:inline-flex;gap:48px;animation:scrollX 22s linear infinite;font-family:'Syne';font-weight:700;letter-spacing:.08em;font-size:1rem;color:#d6dcea}
+.marquee-track i{color:var(--accent);font-style:normal}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:90px 5%;max-width:1120px;margin:0 auto}
+.sec-tag{display:inline-block;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(0,229,160,.35);padding:7px 14px;border-radius:99px;background:rgba(0,229,160,.08);margin-bottom:16px}
+.sec-title{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.05;margin-bottom:12px}
+.sec-sub{color:var(--muted);max-width:620px;margin-bottom:36px}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:stretch}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:var(--radius);padding:30px;position:relative;overflow:hidden;transition:.35s}
+.card:hover{transform:translateY(-6px);border-color:rgba(108,92,255,.5);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.card::before{content:'';position:absolute;inset:0;background:radial-gradient(400px 200px at var(--mx,50%) var(--my,0%),rgba(0,229,160,.15),transparent 70%);opacity:0;transition:.3s;pointer-events:none}
+.card:hover::before{opacity:1}
+.avatar-wrap{display:flex;gap:18px;align-items:center;margin-bottom:18px}
+.avatar{width:84px;height:84px;border-radius:26px;background:linear-gradient(135deg,var(--accent2),var(--pink),var(--accent));display:grid;place-items:center;font-family:'Syne';font-weight:800;font-size:1.8rem;color:#fff;box-shadow:0 10px 30px rgba(108,92,255,.5);animation:floatY 4s ease-in-out infinite}
+@keyframes floatY{50%{transform:translateY(-8px) rotate(3deg)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-size:.8rem;padding:7px 13px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--border)}
+.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.counter{text-align:center;padding:14px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid var(--border)}
+.counter b{font-size:1.4rem;color:var(--accent)}
+.info-list{list-style:none;display:grid;gap:12px;margin-top:6px}
+.info-list li{display:flex;gap:12px;align-items:center;color:var(--muted)}
+.info-list i{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:rgba(0,229,160,.12);color:var(--accent);flex-shrink:0}
+
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skill{padding:24px}
+.skill-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.skill-top i{font-size:1.6rem}
+.bar{height:8px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.skill small{color:var(--muted)}
+
+/* Projects */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.proj{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.proj-img{height:170px;position:relative;overflow:hidden;display:grid;place-items:center;font-size:3rem}
+.p1{background:linear-gradient(135deg,#0ea5a5,#6c5cff)}
+.p2{background:linear-gradient(135deg,#ff5ca8,#ffcc3d)}
+.p3{background:linear-gradient(135deg,#00e5a0,#0a84ff)}
+.p4{background:linear-gradient(135deg,#7c3aed,#06d6a0)}
+.p5{background:linear-gradient(135deg,#ff8a00,#ff3d68)}
+.p6{background:linear-gradient(135deg,#0a84ff,#b517ff)}
+.proj-img i{transition:.5s cubic-bezier(.2,.9,.3,1.4);filter:drop-shadow(0 10px 20px rgba(0,0,0,.3))}
+.proj:hover .proj-img i{transform:scale(1.25) rotate(-8deg)}
+.proj-body{padding:22px}
+.proj-body h3{margin-bottom:6px;font-size:1.1rem}
+.proj-body p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap}
+.proj-tags span{font-size:.72rem;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--border)}
+
+/* Timeline */
+.timeline{position:relative;margin-top:10px;padding-left:28px;border-left:2px solid rgba(255,255,255,.12)}
+.t-item{position:relative;padding:0 0 28px 18px}
+.t-item::before{content:'';position:absolute;left:-36px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);box-shadow:0 0 14px var(--accent)}
+.t-item h3{font-size:1.05rem}
+.t-item span{font-size:.82rem;color:var(--accent);font-weight:600;letter-spacing:.06em}
+.t-item p{color:var(--muted);font-size:.92rem}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
+form{display:grid;gap:12px}
+input,textarea{width:100%;padding:14px 16px;border-radius:14px;background:rgba(0,0,0,.3);border:1px solid var(--border);color:#fff;font:inherit;transition:.25s;outline:none}
+input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(0,229,160,.15)}
+textarea{min-height:130px;resize:vertical}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:#0ee59a;color:#04120c;padding:13px 22px;border-radius:99px;font-weight:600;z-index:9999;transition:.4s;opacity:0}
+#toast.show{transform:translate(-50%,0);opacity:1}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:36px 5%;text-align:center;color:var(--muted);background:rgba(255,255,255,.02)}
+footer b{color:#fff}
+.socials{display:flex;gap:10px;justify-content:center;margin:16px 0}
+.socials a{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.05);transition:.3s;font-size:1.1rem}
+.socials a:hover{background:var(--accent);color:#04120c;transform:translateY(-4px) rotate(8deg)}
+
+/* Back to top */
+#toTop{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--accent),#4de3ff);cursor:pointer;font-size:1.2rem;display:grid;place-items:center;opacity:0;pointer-events:none;transition:.35s;z-index:1000;box-shadow:0 10px 30px rgba(0,229,160,.4)}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{transform:translateY(-4px) scale(1.06)}
+
+/* Responsive */
+@media(max-width:900px){
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .skills-grid,.proj-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links{position:fixed;top:74px;left:50%;transform:translateX(-50%) scale(.95);width:92%;flex-direction:column;background:rgba(10,14,24,.97);border:1px solid var(--border);border-radius:20px;padding:12px;opacity:0;pointer-events:none;transition:.3s}
+  .nav-links.open{opacity:1;pointer-events:auto;transform:translateX(-50%) scale(1)}
+  .nav-links a{width:100%;text-align:center}
+  .hamburger{display:block}
+  #navBtn{display:none}
+}
+@media(max-width:580px){.skills-grid,.proj-grid{grid-template-columns:1fr}.counters{grid-template-columns:repeat(3,1fr)}.hero{padding-top:110px}}
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="loader-name">FLORENCIO ENRIQUE JR</div>
+  <div class="loader-bar"><span></span></div>
+</div>
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a class="logo" href="#home"><span class="logo-mark">FE</span><span class="syne">FLORENCIO<span style="color:var(--accent)">.</span>JR</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Work</a>
+    <a href="#journey">Journey</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="btn btn-primary" id="navBtn" style="padding:10px 20px">Hire Me <i class="bi bi-arrow-up-right"></i></a>
+  <button class="hamburger" id="hamburger" aria-label="menu"><i class="bi bi-list"></i></button>
+</nav>
+
+<header class="hero" id="home">
+  <canvas id="particles"></canvas>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div class="badge"><span class="dot"></span> Available for new projects</div>
+    <h1>Hi, I'm <span class="grad">FLORENCIO</span><br><span class="stroke">ENRIQUE JR</span></h1>
+    <div class="typewrap">I'm a <span id="typed"></span></div>
+    <p class="sub">I design & build fast, beautiful web experiences — from DBMS dashboards to modern portfolios. Clean code, bold visuals, smooth animations.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn btn-primary">View My Work <i class="bi bi-stars"></i></a>
+      <a href="#contact" class="btn btn-ghost"><i class="bi bi-chat-dots"></i> Let's Talk</a>
+      <a href="sample.html" class="btn btn-ghost"><i class="bi bi-grid-1x2"></i> DBMS Demo</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><b><span class="count" data-target="25">0</span>+</b><br><span>Projects Built</span></div>
+      <div class="stat"><b><span class="count" data-target="3">0</span>+</b><br><span>Years Coding</span></div>
+      <div class="stat"><b><span class="count" data-target="100">0</span>%</b><br><span>Passion</span></div>
+    </div>
+    <div class="scroll-hint"><div class="mouse"><span></span></div>scroll to explore</div>
+  </div>
+</header>
+
+<div class="marquee"><div class="marquee-track" id="marquee"></div></div>
+
+<section id="about">
+  <span class="sec-tag reveal">01 — About Me</span>
+  <h2 class="sec-title reveal">Turning ideas into <span style="color:var(--accent)">interactive reality.</span></h2>
+  <p class="sec-sub reveal">I'm Florencio Enrique Jr — a developer who loves clean UI, playful motion, and solving real problems with code.</p>
+  <div class="about-grid">
+    <div class="card reveal">
+      <div class="avatar-wrap">
+        <div class="avatar">FJ</div>
+        <div><h3 class="syne">Florencio Enrique Jr</h3><small style="color:var(--muted)">Web Developer • Philippines</small></div>
+      </div>
+      <p style="color:var(--muted)">I specialize in front-end development, DBMS front-ends, dashboards with Chart.js, and responsive layouts with Bootstrap & vanilla CSS/JS. I care about performance, accessibility, and delightful micro-interactions.</p>
+      <div class="chips"><span class="chip">⚡ Fast UI</span><span class="chip">🎨 Modern Design</span><span class="chip">📊 Dashboards</span><span class="chip">✨ Animations</span><span class="chip">📱 Responsive</span></div>
+      <div class="counters">
+        <div class="counter"><b><span class="count" data-target="25">0</span>+</b><br><small>Projects</small></div>
+        <div class="counter"><b><span class="count" data-target="12">0</span></b><br><small>Clients</small></div>
+        <div class="counter"><b><span class="count" data-target="500">0</span>+</b><br><small>Commits</small></div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <h3 class="syne" style="margin-bottom:14px"><i class="bi bi-person-badge" style="color:var(--accent)"></i> Quick Facts</h3>
+      <ul class="info-list">
+        <li><i class="bi bi-geo-alt"></i> Based in the Philippines — open to remote work</li>
+        <li><i class="bi bi-mortarboard"></i> Focused on Web Dev, DBMS & Data Visualization</li>
+        <li><i class="bi bi-code-slash"></i> HTML • CSS • JavaScript • Bootstrap • Chart.js</li>
+        <li><i class="bi bi-lightbulb"></i> I love turning boring tables into beautiful dashboards</li>
+        <li><i class="bi bi-rocket-takeoff"></i> Currently learning advanced animations & backend APIs</li>
+      </ul>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#contact">Contact Me</a>
+        <button class="btn btn-ghost" onclick="downloadCV()"><i class="bi bi-download"></i> Download CV</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <span class="sec-tag reveal">02 — Skills</span>
+  <h2 class="sec-title reveal">My tech <span style="color:var(--accent2)">toolbox.</span></h2>
+  <p class="sec-sub reveal">Animated bars fill up as you scroll — hover any card for a glow tilt effect.</p>
+  <div class="skills-grid">
+    <div class="card skill reveal"><div class="skill-top"><i class="bi bi-filetype-html" style="color:#ff6b3d"></i><b>95%</b></div><h3>HTML5</h3><small>Semantic, accessible markup</small><div class="bar" style="margin-top:12px"><span data-w="95%"></span></div></div>
+    <div class="card skill reveal"><div class="skill-top"><i class="bi bi-filetype-css" style="color:#4da6ff"></i><b>92%</b></div><h3>CSS3 / Animations</h3><small>Flex, Grid, keyframes, glassmorphism</small><div class="bar" style="margin-top:12px"><span data-w="92%"></span></div></div>
+    <div class="card skill reveal"><div class="skill-top"><i class="bi bi-filetype-js" style="color:var(--accent3)"></i><b>88%</b></div><h3>JavaScript</h3><small>DOM, Chart.js, canvas, fetch APIs</small><div class="bar" style="margin-top:12px"><span data-w="88%"></span></div></div>
+    <div class="card skill reveal"><div class="skill-top"><i class="bi bi-bootstrap" style="color:#8b5cf6"></i><b>90%</b></div><h3>Bootstrap 5</h3><small>Rapid responsive layouts</small><div class="bar" style="margin-top:12px"><span data-w="90%"></span></div></div>
+    <div class="card skill reveal"><div class="skill-top"><i class="bi bi-database" style="color:var(--accent)"></i><b>82%</b></div><h3>DBMS / SQL</h3><small>Filtering, CRUD, data viz</small><div class="bar" style="margin-top:12px"><span data-w="82%"></span></div></div>
+    <div class="card skill reveal"><div class="skill-top"><i class="bi bi-git" style="color:#ff5c5c"></i><b>85%</b></div><h3>Git & GitHub</h3><small>Version control & collaboration</small><div class="bar" style="margin-top:12px"><span data-w="85%"></span></div></div>
+  </div>
+</section>
+
+<section id="work">
+  <span class="sec-tag reveal">03 — Selected Work</span>
+  <h2 class="sec-title reveal">Projects with <span style="color:var(--pink)">personality.</span></h2>
+  <p class="sec-sub reveal">A mix of dashboards, UI experiments and live demos — including your DBMS sample in this repo.</p>
+  <div class="proj-grid">
+    <article class="card proj reveal"><div class="proj-img p1"><i class="bi bi-bar-chart-line-fill"></i></div><div class="proj-body"><h3>DBMS Municipality Dashboard</h3><p>Filter by municipality & barangay with live Chart.js visualization.</p><div class="proj-tags"><span>Chart.js</span><span>Bootstrap</span><span>JS</span></div><div style="margin-top:14px"><a href="sample.html" class="btn btn-ghost" style="padding:9px 18px;font-size:.85rem">Live Demo <i class="bi bi-arrow-up-right"></i></a></div></div></article>
+    <article class="card proj reveal"><div class="proj-img p2"><i class="bi bi-palette-fill"></i></div><div class="proj-body"><h3>Portfolio UI System</h3><p>Glassmorphism cards, gradient blobs, cursor glow & scroll reveals.</p><div class="proj-tags"><span>CSS</span><span>Animations</span><span>UX</span></div><div style="margin-top:14px"><a href="#home" class="btn btn-ghost" style="padding:9px 18px;font-size:.85rem">You're here <i class="bi bi-emoji-smile"></i></a></div></div></article>
+    <article class="card proj reveal"><div class="proj-img p3"><i class="bi bi-phone-fill"></i></div><div class="proj-body"><h3>Responsive Landing Kit</h3><p>Mobile-first sections, marquee, counters & preloader.</p><div class="proj-tags"><span>Responsive</span><span>HTML</span><span>JS</span></div><div style="margin-top:14px"><a href="#contact" class="btn btn-ghost" style="padding:9px 18px;font-size:.85rem">Ask for demo <i class="bi bi-arrow-up-right"></i></a></div></div></article>
+    <article class="card proj reveal"><div class="proj-img p4"><i class="bi bi-kanban-fill"></i></div><div class="proj-body"><h3>Task Tracker App</h3><p>LocalStorage CRUD with drag, filter and progress ring.</p><div class="proj-tags"><span>CRUD</span><span>LocalStorage</span></div><div style="margin-top:14px"><a href="#contact" class="btn btn-ghost" style="padding:9px 18px;font-size:.85rem">Coming soon</a></div></div></article>
+    <article class="card proj reveal"><div class="proj-img p5"><i class="bi bi-cloud-sun-fill"></i></div><div class="proj-body"><h3>Weather Mini App</h3><p>Fetch API + animated icons & gradient backgrounds.</p><div class="proj-tags"><span>API</span><span>Fetch</span></div><div style="margin-top:14px"><a href="#contact" class="btn btn-ghost" style="padding:9px 18px;font-size:.85rem">Coming soon</a></div></div></article>
+    <article class="card proj reveal"><div class="proj-img p6"><i class="bi bi-controller"></i></div><div class="proj-body"><h3>Canvas Particle Playground</h3><p>Interactive particles that react to your mouse — like the hero above.</p><div class="proj-tags"><span>Canvas</span><span>Physics</span></div><div style="margin-top:14px"><a href="#home" class="btn btn-ghost" style="padding:9px 18px;font-size:.85rem">Try in hero <i class="bi bi-mouse"></i></a></div></div></article>
+  </div>
+</section>
+
+<section id="journey">
+  <span class="sec-tag reveal">04 — Journey</span>
+  <h2 class="sec-title reveal">My path so <span style="color:var(--accent3)">far.</span></h2>
+  <div class="timeline reveal">
+    <div class="t-item"><span>2026 — NOW</span><h3>Freelance Web Developer</h3><p>Building portfolios, DBMS dashboards and small business sites for clients.</p></div>
+    <div class="t-item"><span>2024 — 2025</span><h3>Front-End & Data Viz Focus</h3><p>Mastered Bootstrap, Chart.js, filtering logic and responsive animation patterns.</p></div>
+    <div class="t-item"><span>2023</span><h3>Started Coding</h3><p>Hello-world to full pages — HTML, CSS, JavaScript fundamentals and GitHub.</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <span class="sec-tag reveal">05 — Contact</span>
+  <h2 class="sec-title reveal">Let's build something <span style="color:var(--accent)">great.</span></h2>
+  <p class="sec-sub reveal">Send a message — I usually reply within 24 hours.</p>
+  <div class="contact-grid">
+    <div class="card reveal">
+      <h3 class="syne" style="margin-bottom:12px">Direct info</h3>
+      <ul class="info-list">
+        <li><i class="bi bi-person"></i> Florencio Enrique Jr</li>
+        <li><i class="bi bi-envelope"></i> florencio.enrique.jr@example.com</li>
+        <li><i class="bi bi-telephone"></i> +63 900 000 0000</li>
+        <li><i class="bi bi-geo-alt"></i> Philippines • Remote friendly</li>
+      </ul>
+      <div class="socials" style="justify-content:flex-start;margin-bottom:0">
+        <a href="#" aria-label="github"><i class="bi bi-github"></i></a>
+        <a href="#" aria-label="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="#" aria-label="envelope"><i class="bi bi-envelope-fill"></i></a>
+      </div>
+    </div>
+    <div class="card reveal">
+      <form id="contactForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <input required placeholder="Your name" id="cName" />
+          <input required type="email" placeholder="Email address" id="cEmail" />
+        </div>
+        <input placeholder="Subject (e.g. Website project)" id="cSub" />
+        <textarea required placeholder="Tell me about your project..." id="cMsg"></textarea>
+        <button class="btn btn-primary" type="submit" style="justify-content:center">Send Message <i class="bi bi-send-fill"></i></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="syne" style="font-weight:800;letter-spacing:.08em">FLORENCIO ENRIQUE JR</div>
+  <div class="socials">
+    <a href="#home"><i class="bi bi-github"></i></a>
+    <a href="#home"><i class="bi bi-facebook"></i></a>
+    <a href="#home"><i class="bi bi-linkedin"></i></a>
+    <a href="#home"><i class="bi bi-instagram"></i></a>
+  </div>
+  <div>© <span id="year"></span> <b>Florencio Enrique Jr</b> • Designed & coded with passion • <a href="sample.html" style="text-decoration:underline">DBMS Demo</a></div>
+</footer>
+
+<button id="toTop" aria-label="back to top"><i class="bi bi-arrow-up"></i></button>
+<div id="toast">Message sent! I'll get back to you soon. ✨</div>
+
+<script>
+// Preloader
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hide'),1400));
+setTimeout(()=>document.getElementById('preloader').classList.add('hide'),3200);
+
+// Year
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Marquee
+const words=['WEB DEVELOPER','UI DESIGN','ANIMATIONS','CHART.JS','BOOTSTRAP','DBMS','RESPONSIVE','FLORENCIO ENRIQUE JR'];
+document.getElementById('marquee').innerHTML=(words.map(w=>`<span>${w} <i>✦</i></span>`).join('')+words.map(w=>`<span>${w} <i>✦</i></span>`).join(''));
+
+// Mobile nav
+const ham=document.getElementById('hamburger'),links=document.getElementById('navLinks');
+ham.onclick=()=>links.classList.toggle('open');
+links.querySelectorAll('a').forEach(a=>a.onclick=()=>links.classList.remove('open'));
+
+// Typing effect
+const roles=['Web Developer.','UI Designer.','Dashboard Builder.','Animation Lover.','Problem Solver.'];
+let ri=0,ci=0,del=false;const el=document.getElementById('typed');
+(function type(){
+  const word=roles[ri];
+  el.textContent=word.slice(0,ci);
+  if(!del){ci++;if(ci>word.length){del=true;return setTimeout(type,1300)}}
+  else{ci--;if(ci===0){del=false;ri=(ri+1)%roles.length}}
+  setTimeout(type,del?38:78);
+})();
+
+// Particles
+const cv=document.getElementById('particles'),ctx=cv.getContext('2d');let P=[];
+function resize(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight}
+resize();addEventListener('resize',resize);
+for(let i=0;i<70;i++)P.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,r:Math.random()*2.4+.6});
+let mx=-999,my=-999;
+addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});
+(function anim(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  P.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);
+    if(d<130){p.x+=dx/d*1.2;p.y+=dy/d*1.2}
+    if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fillStyle='rgba(0,229,160,.7)';ctx.fill();
+  });
+  // connect near lines
+  for(let i=0;i<P.length;i+=3)for(let j=i+1;j<P.length;j+=3){
+    const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<120){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(108,92,255,${(1-d/120)*.35})`;ctx.stroke()}
+  }
+  requestAnimationFrame(anim);
+})();
+
+// Reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');
+  e.target.querySelectorAll('.bar span').forEach(s=>s.style.width=s.dataset.w);
+  if(e.target.classList.contains('bar'))e.target.querySelector('span').style.width=e.target.querySelector('span').dataset.w;
+}}),{threshold:.15});
+document.querySelectorAll('.reveal,.bar span').forEach(n=>io.observe(n.closest('.reveal')||n));
+document.querySelectorAll('.skill .bar span').forEach(s=>io.observe(s));
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.style.width=e.target.dataset.w}),{threshold:.4});
+document.querySelectorAll('.bar span').forEach(s=>io2.observe(s));
+
+// Counters
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;const n=e.target,target=+n.dataset.target;cio.unobserve(n);
+  let c=0;const step=Math.max(1,Math.round(target/60));
+  const t=setInterval(()=>{c+=step;if(c>=target){c=target;clearInterval(t)}n.textContent=c},30);
+}),{threshold:.6});
+document.querySelectorAll('.count').forEach(n=>cio.observe(n));
+
+// Card spotlight + tilt
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+});
+
+// Custom cursor
+const cur=document.getElementById('cursor');
+addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.querySelectorAll('a,.btn,.card').forEach(n=>{
+  n.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  n.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
+
+// Active nav on scroll
+const secs=[...document.querySelectorAll('section,header')];
+addEventListener('scroll',()=>{
+  document.getElementById('toTop').classList.toggle('show',scrollY>600);
+  let cur='home';
+  secs.forEach(s=>{if(scrollY>=s.offsetTop-160)cur=s.id});
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+document.getElementById('toTop').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+// Contact form
+document.getElementById('contactForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const t=document.getElementById('toast');t.classList.add('show');
+  e.target.reset();setTimeout(()=>t.classList.remove('show'),3200);
+});
+function downloadCV(){
+  const blob=new Blob([`FLORENCIO ENRIQUE JR\nWeb Developer\n\nSkills: HTML, CSS, JS, Bootstrap, Chart.js, DBMS\nContact: florencio.enrique.jr@example.com`],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Florencio-Enrique-Jr-CV.txt';a.click();
+}
+</script>
+</body>
+</html>
